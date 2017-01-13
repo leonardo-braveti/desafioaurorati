@@ -1,0 +1,41 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <h1 class="page-header">Localização</h1>
+
+  <h2 class="sub-header">Registro da sua atual localização</h2>
+  
+  <form ng-submit="salvarLocalizacao()">
+    <div class="form-group">
+      <label for="logradouro">Logradouro:</label>
+      <input type="text" class="form-control" id="logradouro" ng-model="localizacao.logradouro" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="bairro">Bairro:</label>
+      <input type="text" class="form-control" id="bairro" ng-model="localizacao.bairro" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="cidade">Cidade:</label>
+      <input type="text" class="form-control" id="cidade" ng-model="localizacao.cidade" required>
+    </div>
+
+    <div class="form-group">
+      <label for="estado">Estado:</label>
+      <input type="text" class="form-control" id="estado" ng-model="localizacao.estado" required>
+    </div>
+
+    <div class="form-group">
+      <label for="cep">CEP:</label>
+      <input type="text" class="form-control" id="cep" ng-model="localizacao.cep" required>
+    </div>
+
+    <div class="form-group">
+      <label for="pais">Pais:</label>
+      <input type="text" class="form-control" id="pais" ng-model="localizacao.pais" required>
+    </div>
+    
+    <button type="submit" class="btn btn-success">Salvar</button>
+  </form>
+</div>
+
+

@@ -1,0 +1,47 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <h1 class="page-header">Cadastro de Alimentos</h1>
+
+  <h2 class="sub-header">Inserção de Alimentos no Banco de Dados Mundial</h2>
+  
+  <form ng-submit="salvar()">
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input type="text" class="form-control" id="nome" ng-model="alimento.nome">
+    </div>
+    
+    <div class="form-group">
+      <label for="tipo">Tipo:</label>
+      <select class="form-control" id="tipo" ng-model="alimento.tipo">
+        <option value="Proteina">Proteina</option>
+        <option value="Carboidrato">Carboidrato</option>
+        <option value="Vitamina">Vitamina</option>
+      </select>
+    </div>
+    
+    <br>
+    <h4> Validade do produto: [Prazos inferiores à data atual serão rejeitados] </h4>
+    <br>
+    <div class="form-group">
+      <label for="validade">Dia:</label>
+      <input type="number" class="form-control" id="validade" ng-model="validade.dia">      
+    </div>
+
+    <div class="form-group">
+      <label for="validade">Mês:</label>      
+      <input type="number" class="form-control" id="validade" ng-model="validade.mes">      
+    </div>
+
+    <div class="form-group">
+      <label for="validade">Ano:</label>      
+      <input type="number" class="form-control" id="validade" ng-model="validade.ano">
+    </div>
+    <br>
+
+    <div class="form-group">
+      <label for="localizacao">Localização Geográfica:</label>
+      <input type="text" class="form-control" id="localizacao" ng-model="alimento.localizacao">
+    </div>
+    
+    <button type="submit" class="btn btn-success">Salvar</button>
+  </form>
+</div>

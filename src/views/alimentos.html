@@ -1,0 +1,29 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <h1 class="page-header">Listagem de Alimentos</h1>
+
+  <h2 class="sub-header">Alimentos Cadastrados na Plataforma</h2>
+  <div class="table-responsive">
+    <table class="table table-striped" ng-init="distanciar()">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th>Data de Validade</th>
+          <th>Localização</th>
+          <th>Distância</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="alimento in alimentos">
+          <td>{{alimento.id}}</td>
+          <td>{{alimento.nome}}</td>
+          <td>{{alimento.tipo}}</td>
+          <td>{{alimento.validade}}</td>
+          <td>{{alimento.localizacao}}</td>
+          <td>{{alimento.distancia}}</td>
+        </tr>        
+      </tbody>
+    </table>
+  </div>
+</div>
