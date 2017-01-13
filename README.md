@@ -13,4 +13,4 @@ d) npm install gulp -g
 e) npm run gulp server
 
 
-
+A distancia para os alimentos a partir do local de origem está sendo mostrada no console do navegador.
