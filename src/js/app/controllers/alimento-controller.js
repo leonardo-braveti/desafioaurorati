@@ -9,18 +9,20 @@ class AlimentoController{
         this._scope.alimentos = this._alimentoService.listar();
     }
 
-    distanciar(){
-	var alimentos = this._alimentoService.distanciar(this._scope);
+    distanciar(){        
+	this._scope.alimentos = this._alimentoService.listar();
+
+        var usuario = this._usuarioService.obterLocalizacao();
+        if(usuario == null){
+		alert("Você precisa informar a sua localizacao");
+		return;
+	}
+
+	this._scope.alimentos.forEach(function(alimento, index){	
+        	this._alimentoService.distanciar(alimento, usuario)
+        }.bind(this));
     }
   
-    alarme(){
-	console.log("oi");
-    }	
-
-    buscarPeloId(){
-
-    }
-
     salvar(){
         var testaData = this._scope.validade.ano+"-"+this._scope.validade.mes+"-"+this._scope.validade.dia;
         
@@ -32,11 +34,7 @@ class AlimentoController{
             this._scope.state.go("alimentos");
         }
     }
-
-    excluir(){
-
-    }    
-    
+  
     _registrarMetodos(){
         this._scope.listar = angular.bind(this,this.listar);
         this._scope.distanciar = angular.bind(this,this.distanciar);
