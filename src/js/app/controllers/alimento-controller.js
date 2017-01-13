@@ -1,8 +1,7 @@
 class AlimentoController{
-    constructor(scope, alimentoService, usuarioService){        
+    constructor(scope, alimentoService){        
         this._scope = scope;
         this._alimentoService = alimentoService;
-        this._usuarioService = usuarioService;
         this._registrarMetodos();
     }
 
@@ -10,18 +9,8 @@ class AlimentoController{
         this._scope.alimentos = this._alimentoService.listar();
     }
 
-    distanciar(){        
-	this._scope.alimentos = this._alimentoService.listar();
-
-        var usuario = this._usuarioService.obterLocalizacao();
-        if(usuario == null){
-		alert("Você precisa informar a sua localizacao");
-		return;
-	}
-
-	this._scope.alimentos.forEach(function(alimento, index){	
-        	this._alimentoService.distanciar(alimento, usuario, this._scope.alarme())
-        }.bind(this));
+    distanciar(){
+	var alimentos = this._alimentoService.distanciar(this._scope);
     }
   
     alarme(){
@@ -53,12 +42,10 @@ class AlimentoController{
         this._scope.distanciar = angular.bind(this,this.distanciar);
         this._scope.buscarPeloId = angular.bind(this,this.buscarPeloId);        
         this._scope.salvar = angular.bind(this,this.salvar);
-        this._scope.excluir = angular.bind(this,this.excluir);
-        this._scope.alarme = angular.bind(this, this.alarme);
     }
 }
 
-AlimentoController.$inject = ['$scope','alimentoService', 'usuarioService'];
+AlimentoController.$inject = ['$scope','alimentoService'];
 
 angular.module('desafioaurorati')
         .controller('AlimentoController', AlimentoController);

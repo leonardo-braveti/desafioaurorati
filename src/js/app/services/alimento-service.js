@@ -1,21 +1,26 @@
 class AlimentoService{
-    constructor(http){        
+    constructor(http,usuarioService){
         this._proximoId = 1;
         this._http = http;
+	this._usuarioService = usuarioService;
         localStorage.setItem("alimentos", JSON.stringify(new Array()));        
+        this._alimentos = [];
     }
 
     listar(){
         return JSON.parse(localStorage.getItem("alimentos"));
     }
 
-    distanciar(alimento, usuario){
-       console.log(alimento);
-       console.log(usuario);
-       //ar alimentos = JSON.parse(localStorage.getItem("alimentos"));
+    distanciar(scope){
+       var alimentos = JSON.parse(localStorage.getItem("alimentos"));;
+       var usuario = this._usuarioService.obterLocalizacao();
+       
+       var service = new google.maps.DistanceMatrixService();
+       
+    
+       alimentos.forEach(function(alimento, index){
+            if(alimento.distancia == null){
 
-        var service = new google.maps.DistanceMatrixService();
-        
             service.getDistanceMatrix({
                 origins: [usuario.localizacao],
                 destinations: [alimento.localizacao],
@@ -24,16 +29,24 @@ class AlimentoService{
                 function(response, status){
                     if (status == google.maps.DistanceMatrixStatus.OK){
                         //console.log(response.rows[0].elements[0])
-                        alimento.distancia = response.rows[0].elements[0].distance.value;
+                        //alimento.distancia = response.rows[0].elements[0].distance.value;
+                        console.log(scope);
+                        alimentos[index].distancia = {};
+                        alimentos[index].distancia.valor = response.rows[0].elements[0].distance.value;
+			alimentos[index].distancia.texto = response.rows[0].elements[0].distance.text;
                         console.log("A distancia para o endereco é de " + response.rows[0].elements[0].distance.text);
+                   	localStorage.setItem("alimentos", JSON.stringify(alimentos));         
+                        this._alimentos.push(alimentos[index]);
+                        scope.alimentos = this._alimentos;
                         //alimentosNaView.push(alimentos[x]);
-                        //alert("Distância:" + response.rows[0].elements[0].distance.text);
-                        //alert("Duração:" + response.rows[0].elements[0].duration.text);
-
-			return alimento;
+                        //alert("Distância:" + response.rows[0].elements[0].distance.text)
+                        //alert("Duração:" + response.rows[0].elements[0].duration.text);d
                     }
                 }
             );   
+
+	    } 
+	});
     }
 
     buscarPeloId(id){
@@ -73,7 +86,7 @@ class AlimentoService{
     }
 }
 
-AlimentoService.$inject = ['$http'];
+AlimentoService.$inject = ['$http', 'usuarioService'];
 
 angular.module('desafioaurorati')
         .service('alimentoService', AlimentoService);
