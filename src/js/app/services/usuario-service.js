@@ -25,7 +25,7 @@ class UsuarioService{
     }
 
     obterLocalizacao(){
-        return JSON.parse(localStorage.get("localizacao"));
+        return JSON.parse(localStorage.getItem("localizacao"));
     }
 
     salvarLocalizacao(loc){        

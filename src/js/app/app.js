@@ -1,4 +1,3 @@
-angular.module('desafioaurorati',[
-    'ui.router'
-]);
+angular.module('desafioaurorati',['ui.router']);
+
 

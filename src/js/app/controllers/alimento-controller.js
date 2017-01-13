@@ -3,16 +3,7 @@ class AlimentoController{
         this._scope = scope;
         this._alimentoService = alimentoService;
         this._usuarioService = usuarioService;
-        var alimento = {nome: "uva", tipo: "Proteina", validade: new Date("2019-06-30"), localizacao: "Avenida Clara Nunes, 54 Oswaldo Cruz - Rio de Janeiro"};
-        this._scope.alimentos = [];
-        this._scope.alimentos.push(alimento);
-        localStorage.setItem("alimentos", JSON.stringify(this._scope.alimentos));
-        //this._alertaVisual = alertaVisual
         this._registrarMetodos();
-        //this._scope.viewState = this._scope.state.current.name;
-
-        /*if(this._scope.viewState == "colaboradores.editar" || this._scope.viewState == "colaboradores.visualizar")
-            this._scope.buscar(scope.state.params.id);*/        
     }
 
     listar(){
@@ -20,8 +11,22 @@ class AlimentoController{
     }
 
     distanciar(){        
-        this._alimentoService.distanciar(this._scope.alimentos);
+	this._scope.alimentos = this._alimentoService.listar();
+
+        var usuario = this._usuarioService.obterLocalizacao();
+        if(usuario == null){
+		alert("Você precisa informar a sua localizacao");
+		return;
+	}
+
+	this._scope.alimentos.forEach(function(alimento, index){	
+        	this._alimentoService.distanciar(alimento, usuario, this._scope.alarme())
+        }.bind(this));
     }
+  
+    alarme(){
+	console.log("oi");
+    }	
 
     buscarPeloId(){
 
@@ -49,6 +54,7 @@ class AlimentoController{
         this._scope.buscarPeloId = angular.bind(this,this.buscarPeloId);        
         this._scope.salvar = angular.bind(this,this.salvar);
         this._scope.excluir = angular.bind(this,this.excluir);
+        this._scope.alarme = angular.bind(this, this.alarme);
     }
 }
 

@@ -9,35 +9,31 @@ class AlimentoService{
         return JSON.parse(localStorage.getItem("alimentos"));
     }
 
-    distanciar(alimentosNaView){        
-        var alimentos = JSON.parse(localStorage.getItem("alimentos"));
-        var usuario = JSON.parse(localStorage.getItem("localizacao"));
+    distanciar(alimento, usuario){
+       console.log(alimento);
+       console.log(usuario);
+       //ar alimentos = JSON.parse(localStorage.getItem("alimentos"));
 
         var service = new google.maps.DistanceMatrixService();
-
-        for(var x = 0; x < alimentos.length; x++){
+        
             service.getDistanceMatrix({
                 origins: [usuario.localizacao],
-                destinations: [alimentos[x].localizacao],
+                destinations: [alimento.localizacao],
                 travelMode: google.maps.TravelMode.DRIVING
                 }, 
-                function(response, status) {
-                    if (status == google.maps.DistanceMatrixStatus.OK) {
-                        //console.log(response.rows[0].elements[0]);
-                        console.log(alimentos);
-                        console.log(x);
-                        alimentos[x].distancia = response.rows[0].elements[0].distance.value;
-                        //alimento.distancia = response.rows[0].elements[0].distance.text;
-                        console.log(alimentosNaView.length)
-                        console.log("recarregat tabrla")
-                        alimentosNaView.push(alimentos[x]);
-                        console.log(alimentosNaView.length)                                            
+                function(response, status){
+                    if (status == google.maps.DistanceMatrixStatus.OK){
+                        //console.log(response.rows[0].elements[0])
+                        alimento.distancia = response.rows[0].elements[0].distance.value;
+                        console.log("A distancia para o endereco é de " + response.rows[0].elements[0].distance.text);
+                        //alimentosNaView.push(alimentos[x]);
                         //alert("Distância:" + response.rows[0].elements[0].distance.text);
                         //alert("Duração:" + response.rows[0].elements[0].duration.text);
+
+			return alimento;
                     }
                 }
-            );
-        }
+            );   
     }
 
     buscarPeloId(id){
@@ -48,7 +44,6 @@ class AlimentoService{
     }
 
     salvar(alimento){
-        console.log(localStorage.getItem("alimentos"));
         var alimentos = JSON.parse(localStorage.getItem("alimentos"));
         
         if(alimento.id == null){
